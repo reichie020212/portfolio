@@ -69,7 +69,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${mono.variable} ${sans.variable}`}>
+    <html
+      lang="en"
+      className={`${mono.variable} ${sans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: PRE_PAINT_THEME_SCRIPT }} />
         <script
