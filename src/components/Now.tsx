@@ -4,11 +4,16 @@ import { SectionHead } from "./SectionHead";
 export function Now() {
   return (
     <section id="now" aria-labelledby="now-heading">
-      <SectionHead idx="07" title="now" meta="what i'm up to · inspired by /now" />
+      <SectionHead
+        idx="07"
+        title="now"
+        meta="what i'm up to · inspired by /now"
+        headingId="now-heading"
+      />
 
       <div className="now-card">
         <div>
-          <h2 id="now-heading">Currently</h2>
+          <h3>Currently</h3>
           <div className="upd">last updated · {nowUpdated}</div>
           <ul className="now-list">
             {nowItems.map((item) => (

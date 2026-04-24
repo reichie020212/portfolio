@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Inter } from "next/font/google";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import { PRE_PAINT_THEME_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
@@ -18,20 +19,21 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Redick Butay — Software Developer",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_NAME,
   description:
     "I build line-of-business systems with Odoo and Django, then go home and break things on my headless server for fun. Shipping since 2018.",
   openGraph: {
-    title: "Redick Butay — Software Developer",
-    description:
-      "Odoo · Django · Next.js · self-hosting. Portfolio + terminal.",
+    title: SITE_NAME,
+    description: "Odoo · Django · Next.js · self-hosting. Portfolio + terminal.",
     type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Redick Butay — Software Developer",
-    description:
-      "Odoo · Django · Next.js · self-hosting. Portfolio + terminal.",
+    title: SITE_NAME,
+    description: "Odoo · Django · Next.js · self-hosting. Portfolio + terminal.",
   },
 };
 
@@ -50,6 +52,7 @@ const personSchema = {
   familyName: "Butay",
   alternateName: "Red",
   jobTitle: "Software Developer",
+  url: SITE_URL,
   description:
     "Software developer specializing in Odoo, Django, and self-hosted systems.",
   sameAs: [

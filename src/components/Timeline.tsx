@@ -4,10 +4,12 @@ import { SectionHead } from "./SectionHead";
 export function Timeline() {
   return (
     <section id="timeline" aria-labelledby="timeline-heading">
-      <SectionHead idx="02" title="timeline" meta="git log --oneline --graph" />
-      <h2 id="timeline-heading" className="sr-only" style={{ position: "absolute", left: "-9999px" }}>
-        Timeline
-      </h2>
+      <SectionHead
+        idx="02"
+        title="timeline"
+        meta="git log --oneline --graph"
+        headingId="timeline-heading"
+      />
 
       <div className="timeline">
         {timeline.map((entry) => (

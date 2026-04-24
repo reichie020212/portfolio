@@ -15,10 +15,8 @@ export function Homelab() {
         idx="06"
         title="homelab"
         meta="systemctl --user list-units --state=running"
+        headingId="homelab-heading"
       />
-      <h2 id="homelab-heading" style={{ position: "absolute", left: "-9999px" }}>
-        Homelab
-      </h2>
 
       <div className="lab-wrap">
         <aside className="lab-host" aria-label="Host overview">

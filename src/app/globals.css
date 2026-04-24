@@ -394,10 +394,11 @@ h1, h2, h3 { font-family: var(--mono); font-weight: 500; margin: 0; }
   font-size: 10px; color: var(--fg-dimmer); letter-spacing: .1em;
 }
 
-.about-copy h2 {
+.about-copy h3 {
   font-size: 22px; letter-spacing: -.01em; margin-bottom: 18px;
+  font-weight: 500;
 }
-.about-copy h2 .sl { color: var(--accent); }
+.about-copy h3 .sl { color: var(--accent); }
 
 .facts {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -654,8 +655,9 @@ h1, h2, h3 { font-family: var(--mono); font-weight: 500; margin: 0; }
   gap: 28px;
 }
 @media (max-width: 720px) { .now-card { grid-template-columns: 1fr; } }
-.now-card h2 {
+.now-card h3 {
   font-size: 18px; letter-spacing: -.01em; margin-bottom: 4px;
+  font-weight: 500;
 }
 .now-card .upd { font-size: 11px; color: var(--fg-dimmer); letter-spacing: .04em; margin-bottom: 14px; }
 .now-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
@@ -718,7 +720,7 @@ h1, h2, h3 { font-family: var(--mono); font-weight: 500; margin: 0; }
   gap: 28px;
 }
 @media (max-width: 720px) { .contact-card { grid-template-columns: 1fr; } }
-.contact-card h2 { font-size: 22px; letter-spacing: -.01em; }
+.contact-card h3 { font-size: 22px; letter-spacing: -.01em; font-weight: 500; }
 .contact-card .lede { color: var(--fg-dim); font-size: 14px; margin: 10px 0 18px; }
 .contact-card .sig {
   font-family: var(--mono); color: var(--fg-dimmer); font-size: 12px;

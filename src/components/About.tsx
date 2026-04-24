@@ -4,7 +4,7 @@ import { SectionHead } from "./SectionHead";
 export function About() {
   return (
     <section id="about" aria-labelledby="about-heading">
-      <SectionHead idx="01" title="about" meta="cat ~/about.md" />
+      <SectionHead idx="01" title="about" meta="cat ~/about.md" headingId="about-heading" />
 
       <div className="about-grid">
         <div
@@ -22,9 +22,9 @@ export function About() {
         </div>
 
         <div className="about-copy">
-          <h2 id="about-heading">
+          <h3>
             Hi, I&apos;m Red<span className="sl">.</span>
-          </h2>
+          </h3>
           <p className="prose">
             I&apos;ve been writing software since <strong>2018</strong>. My day job lives mostly inside the{" "}
             <strong>Odoo</strong> ecosystem — modeling messy business workflows into something a human can actually click through — with <strong>Django</strong> when I need something more bespoke.

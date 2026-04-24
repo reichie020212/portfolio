@@ -4,10 +4,7 @@ import { SectionHead } from "./SectionHead";
 export function Stack() {
   return (
     <section id="stack" aria-labelledby="stack-heading">
-      <SectionHead idx="03" title="stack" meta="~/.config/toolbelt" />
-      <h2 id="stack-heading" style={{ position: "absolute", left: "-9999px" }}>
-        Stack
-      </h2>
+      <SectionHead idx="03" title="stack" meta="~/.config/toolbelt" headingId="stack-heading" />
 
       <div className="stack-grid">
         {stack.map((col) => (

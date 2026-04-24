@@ -4,10 +4,12 @@ import { SectionHead } from "./SectionHead";
 export function Projects() {
   return (
     <section id="projects" aria-labelledby="projects-heading">
-      <SectionHead idx="04" title="projects" meta="ls ~/projects | head" />
-      <h2 id="projects-heading" style={{ position: "absolute", left: "-9999px" }}>
-        Projects
-      </h2>
+      <SectionHead
+        idx="04"
+        title="projects"
+        meta="ls ~/projects | head"
+        headingId="projects-heading"
+      />
 
       <div className="proj-grid">
         {projects.map((p) => (

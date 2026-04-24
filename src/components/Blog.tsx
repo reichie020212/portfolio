@@ -4,10 +4,7 @@ import { SectionHead } from "./SectionHead";
 export function Blog() {
   return (
     <section id="blog" aria-labelledby="blog-heading">
-      <SectionHead idx="08" title="writing" meta="~/notes · draft posts" />
-      <h2 id="blog-heading" style={{ position: "absolute", left: "-9999px" }}>
-        Writing
-      </h2>
+      <SectionHead idx="08" title="writing" meta="~/notes · draft posts" headingId="blog-heading" />
 
       <div className="posts">
         {posts.map((p) => (

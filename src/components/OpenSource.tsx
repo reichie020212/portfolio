@@ -6,10 +6,12 @@ const LEVEL_CLASS = ["", "l1", "l2", "l3", "l4"] as const;
 export function OpenSource() {
   return (
     <section id="oss" aria-labelledby="oss-heading">
-      <SectionHead idx="05" title="open-source" meta="git log --author=redick" />
-      <h2 id="oss-heading" style={{ position: "absolute", left: "-9999px" }}>
-        Open source
-      </h2>
+      <SectionHead
+        idx="05"
+        title="open-source"
+        meta="git log --author=redick"
+        headingId="oss-heading"
+      />
 
       <div className="oss-grid">
         {ossRepos.map((r) => (
