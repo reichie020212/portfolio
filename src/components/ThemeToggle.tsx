@@ -17,6 +17,7 @@ export function ThemeToggle() {
       if (e.key === "t" || e.key === "T") {
         const next = toggleTheme();
         setTheme(next);
+        window.dispatchEvent(new CustomEvent("rb:theme-change"));
       }
     };
     window.addEventListener("keydown", onKey);
@@ -41,6 +42,7 @@ export function ThemeToggle() {
       onClick={() => {
         const next = toggleTheme();
         setTheme(next);
+        window.dispatchEvent(new CustomEvent("rb:theme-change"));
       }}
     >
       <span className="ico" aria-hidden="true" />
