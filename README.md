@@ -86,68 +86,87 @@ header @og Content-Type image/png
 - GitHub Pages (publish `out/` from a workflow)
 - Plain `nginx` (`root /path/to/out; try_files $uri $uri.html $uri/ =404;`)
 
-### Docker Compose (homelab / any server with Docker)
+### Docker Compose
 
-A `Dockerfile`, `Caddyfile`, and `docker-compose.yml` at the repo root
-give you a single-command deploy. The image is a two-stage build: stage
-one builds the static export with Node + pnpm, stage two is Caddy
-serving `out/` with gzip/zstd, tuned cache headers, and automatic HTTPS.
+The repo ships a `Dockerfile`, `Caddyfile`, and `docker-compose.yml`
+for running the site as a container. The image is a two-stage build:
+stage one runs `pnpm build` with Node + pnpm, stage two is Caddy
+serving `out/` on HTTP **:80** with gzip/zstd and tuned cache
+headers. The compose file contains **only the web service** — it's
+deliberately minimal so it slots under whatever reverse proxy or
+tunnel you already run (Cloudflare Tunnel, an existing Caddy,
+Traefik, nginx, …).
+
+#### Bring-up
+
+On the target server:
 
 ```bash
-# one-time: tell the image which domain to bake into the build
-echo 'SITE_DOMAIN=portfolio.your-domain.com' > .env
+git clone <this repo> portfolio
+cd portfolio
 
-# build + run
+# Public origin — baked into <meta>, sitemap.xml, OG image, JSON-LD.
+cat > .env <<EOF
+NEXT_PUBLIC_SITE_URL=https://portfolio.your-domain.com
+EOF
+
 docker compose up -d --build
 ```
 
-`SITE_DOMAIN` does two things:
+The container now listens on HTTP :80 inside the `portfolio` Docker
+network. No host ports are published.
 
-1. It's passed as the `NEXT_PUBLIC_SITE_URL` build arg (`https://$SITE_DOMAIN`)
-   so the sitemap, OG image, and canonical tags all reference the real
-   origin.
-2. Caddy uses it as the site address, which triggers automatic Let's
-   Encrypt issuance (ports 80 + 443 need to be reachable from the
-   public internet for the HTTP-01 challenge).
-
-For local bring-up without a real domain, leave `SITE_DOMAIN` unset —
-the default `localhost` makes Caddy serve on its internal CA cert, which
-your browser will warn about but still load.
-
-Rebuild after content changes:
+Rebuild after content edits:
 
 ```bash
 docker compose up -d --build
 ```
 
-Logs and shell into the container:
+Logs / shell:
 
 ```bash
 docker compose logs -f web
 docker compose exec web sh
 ```
 
-Cert storage is persisted in the named volumes `caddy-data` and
-`caddy-config`, so restarts don't re-issue certs.
+#### Plugging in Cloudflare Tunnel
 
-#### Running behind an upstream reverse proxy
+If your `cloudflared` runs in its own compose stack (recommended —
+keeps the tunnel reusable across projects), attach it to the
+`portfolio` network so it can resolve the container:
 
-If your server already terminates TLS (another Caddy, Traefik, nginx
-Proxy Manager, …), the Compose file is easiest to adjust by swapping
-the published ports for `expose`:
-
-```yaml
-services:
-  web:
-    # ports:  <-- remove this block
-    expose:
-      - "80"
+```bash
+docker network connect portfolio <your-cloudflared-container>
 ```
 
-Then point the upstream at `http://<container-host>:80` (or use the
-Docker network name if both run on the same Docker host) and drop the
-`{$SITE_DOMAIN}` block in `Caddyfile` to `:80 { ... }` so Caddy listens
-on HTTP only and skips its own cert dance.
+Then in the Cloudflare Zero Trust dashboard, point the public-hostname
+route for this site at **`http://web:80`** (or `http://portfolio:80`
+— both resolve inside the network). Cloudflare terminates TLS at
+the edge; the portfolio container stays HTTP-only internally.
+
+The same pattern works for any host-side reverse proxy: connect it to
+the `portfolio` network, target `http://web:80`.
+
+#### Variant — direct HTTPS with Let's Encrypt (no tunnel)
+
+If you'd rather have Caddy terminate TLS itself:
+
+1. In `Caddyfile`, replace the `:80 {` site block with
+   `portfolio.your-domain.com {` (your real hostname). Caddy will
+   auto-issue a Let's Encrypt cert.
+2. In `docker-compose.yml`, add `ports:` for 80, 443, and `443/udp`,
+   plus a `caddy-data` named volume mounted at `/data` so cert state
+   survives restarts.
+3. Make sure DNS points at the server and ports 80/443 are open to
+   the public internet (HTTP-01 challenge needs port 80).
+
+#### Variant — local smoke test without any proxy
+
+```bash
+docker compose up -d --build
+docker run --rm -p 8080:80 portfolio:latest   # temporarily publish
+# browse http://localhost:8080
+```
 
 ## Editing the site's content
 

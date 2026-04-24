@@ -1,10 +1,15 @@
 # Caddyfile for the portfolio container.
-# - Reads SITE_DOMAIN from the environment (`docker compose` passes it in).
-# - Caddy does automatic HTTPS via Let's Encrypt when SITE_DOMAIN is a real
-#   public name. For `localhost` it serves an internal CA cert instead,
-#   which is handy during local bring-up.
+#
+# Listens on HTTP :80 only — TLS is terminated upstream by Cloudflare
+# (via cloudflared / Cloudflare Tunnel) or by another reverse proxy.
+# Matches any host, so no SITE_DOMAIN var is required.
+#
+# If you'd rather have Caddy handle HTTPS + Let's Encrypt directly,
+# replace `:80` with your public hostname (e.g. `portfolio.example.com`),
+# republish ports 80/443 in docker-compose.yml, and mount a caddy-data
+# volume at /data to persist certs across restarts.
 
-{$SITE_DOMAIN:localhost} {
+:80 {
 	root * /srv
 	encode zstd gzip
 
@@ -22,7 +27,7 @@
 	header @og Content-Type image/png
 	header @og Cache-Control "public, max-age=86400"
 
-	# Small security headers — cheap and harmless on a static site.
+	# Cheap security headers.
 	header {
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
