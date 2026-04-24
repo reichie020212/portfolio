@@ -86,6 +86,103 @@ header @og Content-Type image/png
 - GitHub Pages (publish `out/` from a workflow)
 - Plain `nginx` (`root /path/to/out; try_files $uri $uri.html $uri/ =404;`)
 
+## Editing the site's content
+
+Almost every piece of text, every card, every list on the page is driven
+by a single file: **`src/lib/content.ts`**. Open it and you'll see one
+named export per content block. Change the data, save, and `pnpm dev`
+hot-reloads the section.
+
+You do *not* need to touch JSX for any of the edits below.
+
+### What lives where
+
+| What you want to change                             | Edit this                                   |
+| --------------------------------------------------- | ------------------------------------------- |
+| Hero copy (`Software developer.`, bio paragraph)    | `src/components/Hero.tsx`                   |
+| The key-value list in the hero (`name`, `role`, …)  | `heroFacts` in `src/lib/content.ts`         |
+| The tag chips under the hero                        | `heroChips` in `src/lib/content.ts`         |
+| The `Hi, I'm Red.` paragraph + the 3 "fact" tiles   | `facts` array + JSX in `src/components/About.tsx` |
+| Timeline entries                                    | `timeline` in `src/lib/content.ts`          |
+| Stack columns (Core / Frontend / Infra / Also)      | `stack` in `src/lib/content.ts`             |
+| Project cards                                       | `projects` in `src/lib/content.ts`          |
+| Open-source cards                                   | `ossRepos` in `src/lib/content.ts`          |
+| Homelab host info + gauges                          | `hostInfo` in `src/lib/content.ts`          |
+| Homelab services grid                               | `services` in `src/lib/content.ts`          |
+| `now` bullet list + side stats                      | `nowItems` and `nowSide` in `src/lib/content.ts` |
+| `now` "last updated" label                          | `nowUpdated` in `src/lib/content.ts`        |
+| Blog post index                                     | `posts` in `src/lib/content.ts`             |
+| Contact links                                       | `contactLinks` in `src/lib/content.ts`      |
+| Top-bar nav links                                   | `navLinks` in `src/lib/content.ts`          |
+| Terminal command output (help, about, projects, …)  | `src/lib/commands.ts`                       |
+| Page `<title>` / description / OG copy              | `metadata` in `src/app/layout.tsx`          |
+| JSON-LD Person schema (jobTitle, sameAs, …)         | `personSchema` in `src/app/layout.tsx`      |
+| OG image art                                        | `src/app/opengraph-image.tsx`               |
+| Colours / radii / spacing tokens                    | `:root` in `src/app/globals.css`            |
+| Light-mode token overrides                          | `[data-theme="light"]` in `src/app/globals.css` |
+
+### Recipes
+
+**Add a new project.** Open `src/lib/content.ts`, find `projects`, and
+append one more object:
+
+```ts
+{
+  index: "[05]",
+  slug: "my-new-thing",
+  title: "My New Thing",
+  description: "One-sentence pitch.",
+  tags: ["next.js", "tailwind"],
+  status: "live",          // or "building"
+  glyph: "⚡",              // appears in the placeholder thumb
+  thumbLabel: "my-new-thing.png · 16:9 placeholder",
+},
+```
+
+TypeScript will flag any missing fields. Types live in
+`src/types/content.ts` if you need to check the exact shape.
+
+**Add a timeline entry.** Same file, `timeline` array. Mark `active: true`
+on exactly the current entry (it controls the filled-circle marker);
+remove it from the previous one.
+
+**Add a stack item.** Pick a column in `stack` and push into its
+`items`: `{ name: "Rust", years: "1y", level: 40 }`. `level` is 0-100
+and drives the progress bar.
+
+**Add a homelab service.** Push into `services`:
+```ts
+{ name: "Grafana", desc: "dashboards", uptime: "up 3d", port: ":3100", state: "up" }
+```
+`state` is `"up"` | `"warn"` | `"off"` and colours the dot.
+
+**Add a blog post.** Push into `posts`:
+```ts
+{ date: "2026 · 05 · 01", tag: "[odoo]", title: "…", readTime: "5 min", href: "#" }
+```
+Keep `href: "#"` until you actually have somewhere to link to.
+
+**Update the `now` list.** Change `nowItems`, and bump `nowUpdated` to
+the current month (e.g. `"May 2026"`). The 4 side stats (focus, listening,
+last commit, coffee) are in `nowSide`.
+
+**Change the accent colour.** In `src/app/globals.css`, the `--accent`
+variable lives in both `:root` (dark) and `[data-theme="light"]`. Pick
+new `oklch()` values for each. If you want to change the whole palette,
+see the comment blocks — every token has dark + light pairs right next
+to each other.
+
+**Change / add a terminal command.** `src/lib/commands.ts` holds a
+`COMMANDS` record where each key is the command name and the value is
+a function returning `{ lines, effect? }`. `lines` is an array of HTML
+strings; `effect` can be `{ kind: "clear" }`, `{ kind: "scroll",
+selector }`, or `{ kind: "toggleTheme" }`. Add your new key and it
+shows up in Tab completion automatically. Remember to add it to the
+`help` command's output too.
+
+**Edit a hint button below the terminal.** Edit the `HINT_COMMANDS`
+tuple at the top of `src/components/Terminal.tsx`.
+
 ## Dropping real assets
 
 The prototype ships with placeholder visuals. When you have real files,
