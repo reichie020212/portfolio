@@ -53,6 +53,7 @@ always runs against compressed static output (`npx serve out`).
 | `src/app/layout.tsx`               | Fonts, metadata, pre-paint theme script, JSON-LD    |
 | `src/app/globals.css`              | `@theme` tokens + ported prototype CSS              |
 | `src/app/opengraph-image.tsx`      | 1200×630 OG image (ImageResponse)                   |
+| `src/app/icon.tsx`                 | 32×32 favicon (ImageResponse)                       |
 | `src/app/{robots,sitemap}.ts`      | Metadata routes (static, `dynamic = "force-static"`)|
 | `src/components/*.tsx`             | 13 section components                               |
 | `src/types/content.ts`             | Shared content types                                |
@@ -74,6 +75,10 @@ always runs against compressed static output (`npx serve out`).
   `rb:theme-change` `CustomEvent`. The pre-paint script lives inline
   in `<head>` via `dangerouslySetInnerHTML` — moving it to
   `next/script` defers it past first paint and causes FOUC.
+- **`<html>` carries `suppressHydrationWarning`** — the pre-paint
+  script sets `data-theme` before React hydrates, which would
+  otherwise trip React's hydration-mismatch warning. Don't remove
+  the prop; the mismatch is intentional and out-of-band.
 - **Tweaks panel postMessage protocol** (`__activate_edit_mode` /
   `__deactivate_edit_mode` inbound; `__edit_mode_available` /
   `__edit_mode_set_keys` outbound) is an external contract — don't
@@ -93,7 +98,9 @@ always runs against compressed static output (`npx serve out`).
 - Change the design to fit Tailwind. If a rule is awkward as a
   utility, write it in `globals.css`.
 - Commit `next-env.d.ts` (gitignored; Next regenerates it on build).
-- Commit `out/`, `.next/`, or `portfolio-test-artifacts/`.
+- Commit `out/`, `.next/`, `test-artifacts/` (local Playwright
+  screenshot output), or `.playwright-mcp/` (Playwright MCP's
+  working dir). All four are gitignored.
 
 ## Verifying UI changes
 

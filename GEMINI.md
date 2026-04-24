@@ -58,7 +58,10 @@ you're advising on new feature areas.
    with runtime behavior, no `revalidate`. Metadata routes require
    `export const dynamic = "force-static"`.
 6. **Theme storage key = `rb.theme`.** Inline pre-paint script in
-   `<head>` must not move to `next/script` (causes FOUC).
+   `<head>` must not move to `next/script` (causes FOUC). The
+   `<html>` element carries `suppressHydrationWarning` because the
+   script sets `data-theme` before React hydrates — intentional
+   out-of-band write; don't refactor it away.
 7. **Tweaks panel postMessage protocol** (`__activate_edit_mode`,
    `__deactivate_edit_mode`, `__edit_mode_available`,
    `__edit_mode_set_keys`) is an external contract — don't rename.

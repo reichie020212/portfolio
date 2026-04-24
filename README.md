@@ -279,6 +279,9 @@ drop them under `public/` and wire them in:
   `src/components/Projects.tsx` the same way.
 - **OG image** — the build generates one at `/opengraph-image` from
   `src/app/opengraph-image.tsx`. Edit that file to change the art.
+- **Favicon** — the build generates a 32×32 PNG at `/icon` from
+  `src/app/icon.tsx` (accent-red "R" on `--bg`). Edit that file, or
+  drop a `favicon.ico` / `icon.png` in `src/app/` to override it.
 
 ## Project structure
 
@@ -289,6 +292,7 @@ src/
     page.tsx              # section composition
     globals.css           # @theme tokens + ported prototype CSS
     opengraph-image.tsx   # 1200×630 OG image (ImageResponse)
+    icon.tsx              # 32×32 favicon (ImageResponse)
     robots.ts             # /robots.txt
     sitemap.ts            # /sitemap.xml
   components/             # TopBar, Hero, Terminal, About, Timeline, …
