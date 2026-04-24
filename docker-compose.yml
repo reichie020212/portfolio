@@ -1,0 +1,35 @@
+# Stand up the portfolio with a single `docker compose up -d --build`.
+#
+# Before first run, set SITE_DOMAIN in the environment (or in a .env file
+# next to this compose file). Use a real public DNS name to get an
+# automatic Let's Encrypt cert; use `localhost` to serve on an internal
+# Caddy cert for local bring-up.
+#
+#   SITE_DOMAIN=portfolio.example.com
+#
+# The NEXT_PUBLIC_SITE_URL build arg is derived from SITE_DOMAIN so the
+# compiled <meta> tags, sitemap.xml, and OG image all reference the same
+# origin the server is actually answering on.
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: https://${SITE_DOMAIN:-localhost}
+    image: portfolio:latest
+    container_name: portfolio
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # HTTP/3 (QUIC)
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:-localhost}
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  caddy-data:
+  caddy-config:

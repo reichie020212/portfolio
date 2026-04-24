@@ -1,0 +1,16 @@
+# Let the Docker build context stay small.
+node_modules
+.next
+out
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+
+# Test artifacts we generate outside the container.
+../portfolio-test-artifacts
+
+# Nothing below the container needs these.
+CLAUDE_CODE_HANDOFF.md
+Portfolio.html

@@ -1,0 +1,35 @@
+# Caddyfile for the portfolio container.
+# - Reads SITE_DOMAIN from the environment (`docker compose` passes it in).
+# - Caddy does automatic HTTPS via Let's Encrypt when SITE_DOMAIN is a real
+#   public name. For `localhost` it serves an internal CA cert instead,
+#   which is handy during local bring-up.
+
+{$SITE_DOMAIN:localhost} {
+	root * /srv
+	encode zstd gzip
+
+	# Long-lived, content-hashed assets.
+	@immutable path /_next/static/* /*.woff2 /*.woff /*.ttf
+	header @immutable Cache-Control "public, max-age=31536000, immutable"
+
+	# HTML + metadata files — short cache, revalidated each visit.
+	@html path / /*.html /sitemap.xml /robots.txt /index.txt
+	header @html Cache-Control "public, max-age=300, must-revalidate"
+
+	# Next exports `/opengraph-image` without a file extension, so help
+	# scrapers (and aggressive mime-sniffers) by pinning the content type.
+	@og path /opengraph-image
+	header @og Content-Type image/png
+	header @og Cache-Control "public, max-age=86400"
+
+	# Small security headers — cheap and harmless on a static site.
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	try_files {path} {path}.html {path}/index.html
+	file_server
+}

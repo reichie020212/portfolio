@@ -86,6 +86,69 @@ header @og Content-Type image/png
 - GitHub Pages (publish `out/` from a workflow)
 - Plain `nginx` (`root /path/to/out; try_files $uri $uri.html $uri/ =404;`)
 
+### Docker Compose (homelab / any server with Docker)
+
+A `Dockerfile`, `Caddyfile`, and `docker-compose.yml` at the repo root
+give you a single-command deploy. The image is a two-stage build: stage
+one builds the static export with Node + pnpm, stage two is Caddy
+serving `out/` with gzip/zstd, tuned cache headers, and automatic HTTPS.
+
+```bash
+# one-time: tell the image which domain to bake into the build
+echo 'SITE_DOMAIN=portfolio.your-domain.com' > .env
+
+# build + run
+docker compose up -d --build
+```
+
+`SITE_DOMAIN` does two things:
+
+1. It's passed as the `NEXT_PUBLIC_SITE_URL` build arg (`https://$SITE_DOMAIN`)
+   so the sitemap, OG image, and canonical tags all reference the real
+   origin.
+2. Caddy uses it as the site address, which triggers automatic Let's
+   Encrypt issuance (ports 80 + 443 need to be reachable from the
+   public internet for the HTTP-01 challenge).
+
+For local bring-up without a real domain, leave `SITE_DOMAIN` unset —
+the default `localhost` makes Caddy serve on its internal CA cert, which
+your browser will warn about but still load.
+
+Rebuild after content changes:
+
+```bash
+docker compose up -d --build
+```
+
+Logs and shell into the container:
+
+```bash
+docker compose logs -f web
+docker compose exec web sh
+```
+
+Cert storage is persisted in the named volumes `caddy-data` and
+`caddy-config`, so restarts don't re-issue certs.
+
+#### Running behind an upstream reverse proxy
+
+If your server already terminates TLS (another Caddy, Traefik, nginx
+Proxy Manager, …), the Compose file is easiest to adjust by swapping
+the published ports for `expose`:
+
+```yaml
+services:
+  web:
+    # ports:  <-- remove this block
+    expose:
+      - "80"
+```
+
+Then point the upstream at `http://<container-host>:80` (or use the
+Docker network name if both run on the same Docker host) and drop the
+`{$SITE_DOMAIN}` block in `Caddyfile` to `:80 { ... }` so Caddy listens
+on HTTP only and skips its own cert dance.
+
 ## Editing the site's content
 
 Almost every piece of text, every card, every list on the page is driven
