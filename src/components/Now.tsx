@@ -5,7 +5,7 @@ export function Now() {
   return (
     <section id="now" aria-labelledby="now-heading">
       <SectionHead
-        idx="07"
+        idx="09"
         title="now"
         meta="what i'm up to · inspired by /now"
         headingId="now-heading"

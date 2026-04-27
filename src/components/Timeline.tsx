@@ -5,7 +5,7 @@ export function Timeline() {
   return (
     <section id="timeline" aria-labelledby="timeline-heading">
       <SectionHead
-        idx="02"
+        idx="04"
         title="timeline"
         meta="git log --oneline --graph"
         headingId="timeline-heading"

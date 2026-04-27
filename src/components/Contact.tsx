@@ -5,7 +5,7 @@ export function Contact() {
   return (
     <section id="contact" aria-labelledby="contact-heading">
       <SectionHead
-        idx="09"
+        idx="03"
         title="contact"
         meta={`echo "hi" | mail red`}
         headingId="contact-heading"

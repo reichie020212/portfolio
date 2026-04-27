@@ -34,10 +34,18 @@ export function escapeHtml(s: string): string {
 function projectsOutput(): string[] {
   return [
     "<b>~/projects</b>",
-    "&nbsp; [01] <span class='acc'>hospital-mgmt</span>   Odoo 19            <span class='ok'>● live</span>",
-    "&nbsp; [02] <span class='acc'>school-mgmt</span>     Odoo 19            <span style='color:var(--warn)'>● building</span>",
-    "&nbsp; [03] <span class='acc'>typingspeed</span>     Next.js + TS       <span class='ok'>● live</span>",
-    "&nbsp; [04] <span class='acc'>storytelling</span>    Next.js + TS       <span class='ok'>● live</span>",
+    "&nbsp; [01] <span class='acc'>hospital-mgmt</span>        Odoo 19              <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
+    "&nbsp; [02] <span class='acc'>hospital-mgmt-wiki</span>   Wiki.js              <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
+    "&nbsp; [03] <span class='acc'>school-mgmt</span>          Odoo 19              <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
+    "&nbsp; [04] <span class='acc'>school-mgmt-wiki</span>     Wiki.js              <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
+    "&nbsp; [05] <span class='acc'>my-blog</span>              Markdown · static    <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
+    "&nbsp; [06] <span class='acc'>baby-grey</span>            Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>self-hosted</span>",
+    "&nbsp; [07] <span class='acc'>typingspeed</span>          Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
+    "&nbsp; [08] <span class='acc'>storytelling</span>         Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
+    "&nbsp; [09] <span class='acc'>skydodger</span>            Next.js + canvas     <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
+    "&nbsp; [10] <span class='acc'>reactiontime</span>         Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
+    "&nbsp; [11] <span class='acc'>pos-system</span>           Expo + Next.js       <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
+    "&nbsp; [12] <span class='acc'>ecommerce</span>            Next.js + Odoo       <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
   ];
 }
 
@@ -52,7 +60,8 @@ export const COMMANDS: Record<string, Command> = {
       "&nbsp; <span class='acc'>stack</span>       tools i use",
       "&nbsp; <span class='acc'>homelab</span>     running services",
       "&nbsp; <span class='acc'>now</span>         what i'm currently doing",
-      "&nbsp; <span class='acc'>blog</span>        recent writing",
+      "&nbsp; <span class='acc'>resume</span>      view / download my resume",
+      "&nbsp; <span class='acc'>blog</span>        link to my writing",
       "&nbsp; <span class='acc'>contact</span>     how to reach me",
       "&nbsp; <span class='acc'>theme</span>       toggle dark/light",
       "&nbsp; <span class='acc'>clear</span>       clear the screen",
@@ -65,9 +74,9 @@ export const COMMANDS: Record<string, Command> = {
       'name     Redick "Red" Butay',
       "role     Software Developer",
       "since    2018",
-      "stack    Odoo · Django · Next.js · PostgreSQL",
+      "stack    Odoo · Django · Next.js · React · PostgreSQL",
       "bio      <span class='dim'>builds line-of-business systems by day,",
-      "         tinkers with a headless server by night.</span>",
+      "         tinkers with a headless mac mini by night.</span>",
     ],
   }),
 
@@ -87,18 +96,19 @@ export const COMMANDS: Record<string, Command> = {
 
   stack: () => ({
     lines: [
-      "core      python · odoo · django · postgres",
-      "front     typescript · next.js · react",
-      "infra     linux · docker · caddy · keycloak",
-      "also      n8n · vim · git",
+      "core      python · odoo (v15-v19) · django · postgres",
+      "front     typescript · next.js · react · angular",
+      "infra     linux · docker · caddy · git",
+      "cloud     aws · cloudflare · mailpit · let's encrypt",
+      "also      n8n · llm · keycloak · gis",
     ],
     effect: { kind: "scroll", selector: "#stack" },
   }),
 
   homelab: () => ({
     lines: [
-      "<b>homelab.local</b> · debian 12 · docker compose",
-      "services: <span class='acc'>nextcloud</span> wikijs hospital-ms openwebui anythingllm n8n appflowy keycloak",
+      "<b>baby-grey.click</b> · headless mac mini m4 pro · docker compose",
+      "services: <span class='acc'>keycloak</span> nextcloud openwebui anythingllm n8n appflowy openclaw",
       "uptime:   37d 4h   cpu: 24%   ram: 63%   disk: 41%",
     ],
     effect: { kind: "scroll", selector: "#homelab" },
@@ -107,19 +117,25 @@ export const COMMANDS: Record<string, Command> = {
   now: () => ({
     lines: [
       "currently shipping a school mgmt system · reading odoo 19 internals",
-      "tinkering with local llm workflows · open to contract work",
+      "self-hosting keycloak/nextcloud/owui/anythingllm/n8n · open to contract work",
     ],
     effect: { kind: "scroll", selector: "#now" },
   }),
 
+  resume: () => ({
+    lines: [
+      "<b>resume</b>",
+      "&nbsp; <a href='/resume.pdf' target='_blank' rel='noopener noreferrer'>↗ open resume.pdf</a>",
+      "&nbsp; <a href='/resume.pdf' download='Redick-Butay-Resume.pdf'>↓ download (479 KB · 2 pages)</a>",
+    ],
+    effect: { kind: "scroll", selector: "#resume" },
+  }),
+
   blog: () => ({
     lines: [
-      "recent posts:",
-      "&nbsp; 2026-03-14  shipping an odoo 19 module without losing your weekend",
-      "&nbsp; 2026-02-02  one caddyfile to rule them all",
-      "&nbsp; 2025-11-22  rag over my wiki, local only",
+      "<span class='dim'>my blog lives on a separate site.</span>",
+      "&nbsp; <span class='acc'>→ blog url: placeholder (coming soon)</span>",
     ],
-    effect: { kind: "scroll", selector: "#blog" },
   }),
 
   contact: () => ({

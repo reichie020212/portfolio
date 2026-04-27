@@ -1,5 +1,6 @@
 export type HeatLevel = 0 | 1 | 2 | 3 | 4;
 export type ProjectStatus = "live" | "building";
+export type ProjectHosting = "self-hosted" | "cloud";
 export type ServiceState = "up" | "warn" | "off";
 
 export interface HeroFact {
@@ -36,6 +37,9 @@ export interface Project {
   description: string;
   tags: string[];
   status: ProjectStatus;
+  hosting: ProjectHosting;
+  /** Public URL of the project. Use "#" or omit for projects with no live URL yet. */
+  url?: string;
   glyph: string;
   thumbLabel: string;
 }
@@ -74,6 +78,8 @@ export interface Service {
   uptime: string;
   port: string;
   state: ServiceState;
+  /** Public URL — when set, the service name links out. */
+  href?: string;
 }
 
 export interface NowItem {
@@ -86,14 +92,6 @@ export interface NowSideBlock {
   value: string;
   muted?: string;
   percent?: number;
-}
-
-export interface BlogPost {
-  date: string;
-  tag: string;
-  title: string;
-  readTime: string;
-  href: string;
 }
 
 export interface ContactLink {

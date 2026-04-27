@@ -7,7 +7,7 @@ export function OpenSource() {
   return (
     <section id="oss" aria-labelledby="oss-heading">
       <SectionHead
-        idx="05"
+        idx="07"
         title="open-source"
         meta="git log --author=redick"
         headingId="oss-heading"

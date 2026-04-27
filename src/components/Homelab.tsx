@@ -12,7 +12,7 @@ export function Homelab() {
   return (
     <section id="homelab" aria-labelledby="homelab-heading">
       <SectionHead
-        idx="06"
+        idx="08"
         title="homelab"
         meta="systemctl --user list-units --state=running"
         headingId="homelab-heading"
@@ -52,7 +52,13 @@ export function Homelab() {
             <div key={s.name} className={svcClass(s.state)}>
               <div className="name">
                 <span className="dot" aria-hidden="true" />
-                {s.name}
+                {s.href ? (
+                  <a href={s.href} target="_blank" rel="noopener noreferrer">
+                    {s.name}
+                  </a>
+                ) : (
+                  s.name
+                )}
               </div>
               <div className="desc">{s.desc}</div>
               <div className="meta">
