@@ -42,6 +42,9 @@ export interface Project {
   url?: string;
   glyph: string;
   thumbLabel: string;
+  /** When set, render this image as the project thumbnail instead of the glyph placeholder. */
+  thumbSrc?: string;
+  thumbAlt?: string;
 }
 
 export interface OssRepo {
@@ -99,5 +102,4 @@ export interface ContactLink {
   display: string;
   href: string;
   external?: boolean;
-  disabled?: boolean;
 }

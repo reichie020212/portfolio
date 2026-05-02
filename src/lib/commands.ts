@@ -39,13 +39,13 @@ function projectsOutput(): string[] {
     "&nbsp; [03] <span class='acc'>school-mgmt</span>          Odoo 19              <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
     "&nbsp; [04] <span class='acc'>school-mgmt-wiki</span>     Wiki.js              <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
     "&nbsp; [05] <span class='acc'>my-blog</span>              Markdown · static    <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
-    "&nbsp; [06] <span class='acc'>baby-grey</span>            Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>self-hosted</span>",
+    "&nbsp; [06] <span class='acc'>baby-grey</span>            Next.js + TS         <span class='ok'>● live</span>     <span class='dim'>self-hosted</span>",
     "&nbsp; [07] <span class='acc'>typingspeed</span>          Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
     "&nbsp; [08] <span class='acc'>storytelling</span>         Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
     "&nbsp; [09] <span class='acc'>skydodger</span>            Next.js + canvas     <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
     "&nbsp; [10] <span class='acc'>reactiontime</span>         Next.js + TS         <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
     "&nbsp; [11] <span class='acc'>pos-system</span>           Expo + Next.js       <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
-    "&nbsp; [12] <span class='acc'>ecommerce</span>            Next.js + Odoo       <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
+    "&nbsp; [12] <span class='acc'>ecommerce</span>            Next.js + DRF        <span style='color:var(--warn)'>● building</span> <span class='dim'>cloud</span>",
   ];
 }
 
@@ -98,7 +98,7 @@ export const COMMANDS: Record<string, Command> = {
     lines: [
       "core      python · odoo (v15-v19) · django · postgres",
       "front     typescript · next.js · react · angular",
-      "infra     linux · docker · caddy · git",
+      "infra     linux · docker · nginx · git",
       "cloud     aws · cloudflare · mailpit · let's encrypt",
       "also      n8n · llm · keycloak · gis",
     ],
@@ -109,7 +109,7 @@ export const COMMANDS: Record<string, Command> = {
     lines: [
       "<b>baby-grey.click</b> · headless mac mini m4 pro · docker compose",
       "services: <span class='acc'>keycloak</span> nextcloud openwebui anythingllm n8n appflowy openclaw",
-      "uptime:   37d 4h   cpu: 24%   ram: 63%   disk: 41%",
+      "cpu: 24%   ram: 63%   disk: 41%",
     ],
     effect: { kind: "scroll", selector: "#homelab" },
   }),

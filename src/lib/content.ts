@@ -41,7 +41,7 @@ export const timeline: TimelineEntry[] = [
     title: "Software Developer",
     org: "@ Newlogic Philippines",
     body:
-      "Building modules for OpenSPP on Odoo with Python and OWL. Designed a custom GIS module — dynamic vector drawing, raster switching, search, and GeoJSON layers on an interactive map.",
+      "Building enterprise-grade Odoo solutions for clients across industries — custom modules, integrations, and bespoke workflows on top of the Odoo platform. Designed a GIS module with dynamic vector drawing, raster switching, search, and GeoJSON layers on an interactive map.",
     tags: ["odoo", "owl.js", "python", "postgis", "leaflet"],
     active: true,
   },
@@ -110,7 +110,7 @@ export const stack: StackColumn[] = [
       { name: "Git", years: "8y", level: 90 },
       { name: "Linux", years: "7y", level: 88 },
       { name: "Docker", years: "5y", level: 80 },
-      { name: "Nginx / Caddy", years: "4y", level: 70 },
+      { name: "Nginx", years: "4y", level: 70 },
       { name: "GitHub Actions", years: "3y", level: 65 },
     ],
   },
@@ -144,9 +144,11 @@ export const projects: Project[] = [
     tags: ["odoo/19", "python", "postgres", "owl.js"],
     status: "live",
     hosting: "self-hosted",
-    url: "#",
+    url: "https://hospital.buildbyred.dev/",
     glyph: "+H",
     thumbLabel: "hospital.png · 16:9 placeholder",
+    thumbSrc: "/projects/hospital.png",
+    thumbAlt: "Camadin Doctor's Hospital landing page",
   },
   {
     index: "[02]",
@@ -157,9 +159,11 @@ export const projects: Project[] = [
     tags: ["wiki.js", "markdown", "docs"],
     status: "live",
     hosting: "self-hosted",
-    url: "#",
+    url: "https://wiki-hospital.buildbyred.dev/",
     glyph: "HW",
     thumbLabel: "hospital-wiki.png · 16:9 placeholder",
+    thumbSrc: "/projects/hospital-wiki.png",
+    thumbAlt: "Hospital Management System Wiki.js home page",
   },
   {
     index: "[03]",
@@ -170,9 +174,11 @@ export const projects: Project[] = [
     tags: ["odoo/19", "python", "owl.js"],
     status: "live",
     hosting: "self-hosted",
-    url: "#",
+    url: "https://school.buildbyred.dev/",
     glyph: "§",
     thumbLabel: "school.png · 16:9 placeholder",
+    thumbSrc: "/projects/school.png",
+    thumbAlt: "Camadin School portal landing page",
   },
   {
     index: "[04]",
@@ -183,9 +189,11 @@ export const projects: Project[] = [
     tags: ["wiki.js", "markdown", "docs"],
     status: "live",
     hosting: "self-hosted",
-    url: "#",
+    url: "https://wiki-school.buildbyred.dev/",
     glyph: "§W",
     thumbLabel: "school-wiki.png · 16:9 placeholder",
+    thumbSrc: "/projects/school-wiki.png",
+    thumbAlt: "School Management System Wiki.js home page",
   },
   {
     index: "[05]",
@@ -196,9 +204,11 @@ export const projects: Project[] = [
     tags: ["markdown", "static-site", "self-hosted"],
     status: "live",
     hosting: "self-hosted",
-    url: "#",
+    url: "https://blog.buildbyred.dev/",
     glyph: "✎",
     thumbLabel: "blog.png · 16:9 placeholder",
+    thumbSrc: "/projects/blog.png",
+    thumbAlt: "omni-verse blog index with category sidebar and post grid",
   },
   {
     index: "[06]",
@@ -207,11 +217,13 @@ export const projects: Project[] = [
     description:
       "A small site for a small human. Personal project — slowly turning into the front door for everything I host on baby-grey.click.",
     tags: ["next.js", "typescript"],
-    status: "building",
+    status: "live",
     hosting: "self-hosted",
     url: "https://baby-grey.click",
     glyph: "♥",
     thumbLabel: "baby-grey.png · 16:9 placeholder",
+    thumbSrc: "/projects/baby-grey.png",
+    thumbAlt: "Baby Grey's Website hero with portrait and intro copy",
   },
   {
     index: "[07]",
@@ -283,8 +295,8 @@ export const projects: Project[] = [
     slug: "ecommerce",
     title: "E-commerce",
     description:
-      "Storefront + admin for a small online shop — Next.js front, Odoo back, payments via PayMongo.",
-    tags: ["next.js", "odoo", "paymongo"],
+      "Storefront + admin for a small online shop — Next.js front, Django REST Framework back with a PostgreSQL store, payments via PayMongo.",
+    tags: ["next.js", "django", "drf", "paymongo"],
     status: "building",
     hosting: "cloud",
     url: "#",
@@ -327,9 +339,8 @@ export const hostInfo: HostInfo = {
     { label: "host", value: "headless mac mini m4 pro" },
     { label: "os", value: "macOS" },
     { label: "runtime", value: "docker compose" },
-    { label: "proxy", value: "caddy + cloudflare tunnel" },
+    { label: "proxy", value: "cloudflare tunnel" },
     { label: "auth", value: "keycloak sso" },
-    { label: "uptime", value: "37d 4h" },
   ],
   gauges: [
     { label: "cpu", percent: 24 },
@@ -342,7 +353,7 @@ export const services: Service[] = [
   {
     name: "Keycloak",
     desc: "Single sign-on for every service below.",
-    uptime: "up 37d",
+    uptime: "up",
     port: ":8443",
     state: "up",
     href: "https://auth.baby-grey.click",
@@ -350,7 +361,7 @@ export const services: Service[] = [
   {
     name: "NextCloud",
     desc: "Files, calendar & contacts — my personal cloud.",
-    uptime: "up 12d",
+    uptime: "up",
     port: ":443",
     state: "up",
     href: "https://nextcloud.baby-grey.click",
@@ -358,7 +369,7 @@ export const services: Service[] = [
   {
     name: "OpenWebUI",
     desc: "Local LLM frontend — chat over my own models.",
-    uptime: "up 5d",
+    uptime: "up",
     port: ":8080",
     state: "up",
     href: "https://ai.baby-grey.click",
@@ -366,7 +377,7 @@ export const services: Service[] = [
   {
     name: "AnythingLLM",
     desc: "RAG over my notes & docs. Local vectors.",
-    uptime: "up 4d",
+    uptime: "up",
     port: ":3001",
     state: "up",
     href: "https://llm.baby-grey.click",
@@ -374,7 +385,7 @@ export const services: Service[] = [
   {
     name: "n8n",
     desc: "Workflow automation. Ties everything together.",
-    uptime: "up 7d",
+    uptime: "up",
     port: ":5678",
     state: "up",
     href: "https://n8n.baby-grey.click",
@@ -388,10 +399,11 @@ export const services: Service[] = [
   },
   {
     name: "OpenClaw",
-    desc: "Self-hosted dashboard for the homelab. In progress.",
-    uptime: "wip",
-    port: ":—",
-    state: "warn",
+    desc: "Self-hosted dashboard for the homelab.",
+    uptime: "up",
+    port: ":443",
+    state: "up",
+    href: "https://claw.baby-grey.click/",
   },
 ];
 
@@ -425,7 +437,6 @@ export const contactLinks: ContactLink[] = [
     href: "https://www.linkedin.com/in/redick-butay-705616139/",
     external: true,
   },
-  { label: "SIGNAL", display: "on request", href: "#", disabled: true },
 ];
 
 export const navLinks = [

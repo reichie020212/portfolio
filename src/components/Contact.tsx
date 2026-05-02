@@ -15,7 +15,7 @@ export function Contact() {
         <div>
           <h3>Let&apos;s build something.</h3>
           <p className="lede">
-            I&apos;m around for contract work, open-source collaboration, or just a nerdy chat about Odoo modules, self-hosting, or why your Caddyfile is misbehaving. Pick whatever channel fits — I actually read them all.
+            I&apos;m around for contract work, open-source collaboration, or just a nerdy chat about Odoo modules, self-hosting, or why your Docker compose stack keeps drifting. Pick whatever channel fits — I actually read them all.
           </p>
           <div className="sig">
             {`-- redick\n   red@homelab:~$`}
@@ -26,9 +26,7 @@ export function Contact() {
           {contactLinks.map((l) => (
             <li key={l.label}>
               <span className="lbl">{l.label}</span>
-              {l.disabled ? (
-                <span>{l.display}</span>
-              ) : l.external ? (
+              {l.external ? (
                 <a href={l.href} target="_blank" rel="noopener noreferrer">
                   {l.display}
                 </a>

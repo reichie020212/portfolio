@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { projects } from "@/lib/content";
 import type { Project } from "@/types/content";
 import { SectionHead } from "./SectionHead";
@@ -33,16 +34,27 @@ export function Projects() {
                   {p.status === "building" ? "building" : "live"}
                 </span>
               </div>
-              <div
-                className="proj-thumb"
-                role="img"
-                aria-label={`${p.title} thumbnail placeholder`}
-              >
-                <div className="glyph" aria-hidden="true">
-                  {p.glyph}
+              {p.thumbSrc ? (
+                <div className="proj-thumb has-image">
+                  <Image
+                    src={p.thumbSrc}
+                    alt={p.thumbAlt ?? `${p.title} screenshot`}
+                    fill
+                    sizes="(max-width: 760px) 92vw, 540px"
+                  />
                 </div>
-                <span className="label">{p.thumbLabel}</span>
-              </div>
+              ) : (
+                <div
+                  className="proj-thumb"
+                  role="img"
+                  aria-label={`${p.title} thumbnail placeholder`}
+                >
+                  <div className="glyph" aria-hidden="true">
+                    {p.glyph}
+                  </div>
+                  <span className="label">{p.thumbLabel}</span>
+                </div>
+              )}
               <div className="proj-body">
                 <h3>{p.title}</h3>
                 <p>{p.description}</p>

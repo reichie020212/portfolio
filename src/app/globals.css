@@ -518,6 +518,14 @@ h1, h2, h3 { font-family: var(--mono); font-weight: 500; margin: 0; }
   background-image: repeating-linear-gradient(135deg, transparent 0 10px, var(--line-soft) 10px 11px);
   opacity: .7;
 }
+.proj-thumb.has-image::before { display: none; }
+.proj-thumb img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
 .proj-thumb .label {
   position: absolute; left: 12px; bottom: 10px;
   font-size: 10px; color: var(--fg-dimmer); letter-spacing: .1em;
