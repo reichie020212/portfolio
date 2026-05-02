@@ -200,15 +200,15 @@ export const projects: Project[] = [
     slug: "my-blog",
     title: "My Blog",
     description:
-      "Long-form notes on Odoo, self-hosting, and the homelab — written in markdown, served from the same headless box that runs everything else.",
-    tags: ["markdown", "static-site", "self-hosted"],
+      "Self-hosted single-author publication — MDX posts authored from an admin console, drawer-style previews via intercepted routes, plus likes, bookmarks, and comments backed by libsql + Drizzle.",
+    tags: ["next.js", "mdx", "libsql", "drizzle", "auth.js"],
     status: "live",
     hosting: "self-hosted",
     url: "https://blog.buildbyred.dev/",
     glyph: "✎",
     thumbLabel: "blog.png · 16:9 placeholder",
     thumbSrc: "/projects/blog.png",
-    thumbAlt: "omni-verse blog index with category sidebar and post grid",
+    thumbAlt: "blog index with article cards and drawer-style post preview",
   },
   {
     index: "[06]",
